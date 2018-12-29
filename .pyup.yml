@@ -1,0 +1,12 @@
+# see https://pyup.io/docs/configuration/ for all available options
+# THIS NEEDS to be commited to master
+# see: https://github.com/pyupio/pyup/issues/233
+
+update: insecure
+pin: True
+label_prs: update_deps
+branch: next-release
+search: False
+
+requirements:
+  - requirements.txt
