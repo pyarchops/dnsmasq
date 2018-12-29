@@ -1,0 +1,5 @@
+[MASTER]
+extension-pkg-whitelist=netifaces
+
+[TYPECHECK]
+ignored-classes=Api

@@ -1,0 +1,59 @@
+# tmuxp load tmuxp.yaml
+# tmux kill-session -t python-project
+
+session_name: python-project
+start_directory: ./
+
+windows:
+- window_name: editor
+  layout: main-horizontal
+  options:
+    automatic-rename: 'off'
+    main-pane-height: 40
+  panes:
+  - shell_command:
+    - bash -l
+    - source .venv/bin/activate
+    - cd pyarchops_dnsmasq
+    - ctags -R .
+    - vim .
+    focus: true
+  - shell_command:
+    - bash -l
+    - source .venv/bin/activate
+    - cd pyarchops_dnsmasq
+    - bpython
+
+- window_name: tests
+  # https://github.com/tmux-python/tmuxp/issues/98#issuecomment-93997967
+  layout: 0c59,208x59,0,0[208x19,0,0,67,208x19,0,20,68,208x19,0,40,69]
+  options:
+    automatic-rename: 'off'
+  panes:
+  - shell_command:
+    - bash -l
+    - source .venv/bin/activate
+    - nice watchmedo shell-command  --patterns="*.py" --ignore-patterns="./.venv/*;./;/pyarchops_dnsmasq-*" --recursive  --command='clear && make docs ' --drop
+  - shell_command:
+    - bash -l
+    - source .venv/bin/activate
+    - nice watchmedo shell-command  --patterns="*.py" --ignore-patterns="./.venv/*;/pyarchops_dnsmasq-*"  --recursive  --command='clear && make mypy lint '  --drop
+  - shell_command:
+    - bash -l
+    - source .venv/bin/activate
+    - nice watchmedo shell-command  --patterns="*.py" --ignore-patterns="./.venv/*;/pyarchops_dnsmasq-*"  --recursive  --command='clear && make pytest'  --drop
+
+- window_name: bash
+  layout: main-horizontal
+  panes:
+  - shell_command:
+    - bash -l
+    - source .venv/bin/activate
+    - cd pyarchops_dnsmasq
+  - shell_command:
+    - bash -l
+    - source .venv/bin/activate
+    - cd pyarchops_dnsmasq
+    - tmux select-window -t 0
+    - tmux select-pane -t 0
+    - reset
