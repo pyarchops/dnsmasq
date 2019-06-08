@@ -9,7 +9,7 @@ echo "${bold}running bootstrap ....${normal}"
 
 if [ ! -e .venv ]; then
     echo "${bold}initializing virtualenv...${normal}"
-    virtualenv --python=`which python` .venv
+    virtualenv  --always-copy --relocatable --python=`which python` .venv
     echo "${bold}activating  venv....${normal}"
     . .venv/bin/activate
     echo "${bold}installing python requirements...${normal}"
