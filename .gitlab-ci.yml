@@ -20,7 +20,7 @@ docs:
     dependencies:
       - setup
     script:
-      - tar xvzf artifacts.tar.gz
+      - tar xzf artifacts.tar.gz
       - source .venv/bin/activate && LC_ALL=C BROWSER=echo make docs
     artifacts:
       paths:
@@ -33,7 +33,7 @@ syntax:
     dependencies:
       - docs
     script:
-      - tar xvzf artifacts.tar.gz
+      - tar xzf artifacts.tar.gz
       - source .venv/bin/activate && make mypy lint
     artifacts:
       paths:
@@ -46,7 +46,7 @@ app:
     dependencies:
       - syntax
     script:
-      - tar xvzf artifacts.tar.gz
+      - tar xzf artifacts.tar.gz
       - source .venv/bin/activate && make pytest
     tags:
         - archlinux
